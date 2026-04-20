@@ -1,0 +1,39 @@
+# Grade Selection registry.
+# Maps (line, grade) to a foundation profile in `bases/`, with optional
+# per-grade overrides (only name/color/pass/description inside classes,
+# and free scalars elsewhere).
+profiles:
+
+  # ---------- SSBR ----------
+  - line: SSBR
+    grade: F2150
+    extends: ssbr_g3
+
+  - line: SSBR
+    grade: M0511
+    extends: ssbr_g3
+
+  - line: SSBR
+    grade: M1525
+    extends: ssbr_g3
+
+  - line: SSBR
+    grade: M2520
+    extends: ssbr_g3
+    overrides:
+      segment_classes:
+        2: # wet-brwon
+          pass: false
+
+  - line: SSBR
+    grade: F3626Y
+    extends: ssbr_g2
+
+  - line: SSBR
+    grade: 2550H
+    extends: ssbr_g2
+
+  # ---------- BR-C ----------
+  - line: BR-C
+    grade: BR1280
+    extends: br
