@@ -102,15 +102,13 @@ def build_profile(checkpoint_root: str) -> Profile:
         },
         segmenter=None,
         dot_detector1={
-            "checkpoint": f"{root}/defect/detect/weights/BR/dot/yolo_2048/weights/best.pt",
+            "checkpoint": f"{root}/defect/detect/weights/BR/dot/04-18/best.pt",
             "imgsz": 2048,
             "threshold": 0.3,
         },
         dot_detector2=None,
-        dot_cluster={
-            "checkpoints_path": f"{root}/defect/classify/weights/BR/03_BR-dot-add1-2604009.pt",
-            "threshold": 0.7,
-        },
+        dot_cluster=None,
+        dot_confidence_by_side=None,
 
         baler_classifier={
             "checkpoint": f"{root}/baler/weights/BR-C/br_c_all_paired/best_model.pth",
