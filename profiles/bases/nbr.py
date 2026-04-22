@@ -89,12 +89,25 @@ _CLUSTER_CLASSES = {
     '크랙-지렁이처럼보일만한':     {"class_id": 55, "name": "crack-worm",   "color": (255,255,255), "pass": True},
 }
 
+_CLASSIFY_CLASSES = {
+    0: {"description": "NG-1-지렁이",        "name": "other-rubber",               "color": (0, 0, 255),     "pass": False},
+    1: {"description": "NG-2-이물-블랙",     "name": "foreign",                    "color": (0, 0, 255),     "pass": False},
+    2: {"description": "NG-2-이물-컬러",     "name": "foreign",                     "color": (0, 0, 255),     "pass": False},
+    3: {"description": "NG-3-수분",          "name": "wet2",                       "color": (0, 0, 255),     "pass": False},
+    4: {"description": "고무",               "name": "rubber",                     "color": (255, 255, 255), "pass": True},
+    5: {"description": "지렁이-집",          "name": "other-rubber-empty",          "color": (255, 255, 255), "pass": True},
+    6: {"description": "짝대기",             "name": "dash",                       "color": (255, 255, 255), "pass": True},
+    7: {"description": "하단부스러기",       "name": "debris",                       "color": (255, 255, 255), "pass": True},
+}
+
 _SEGMENT_CLASSES = {
     0: {"description": "foreign_black", "name": "foreign",        "color": None, "pass": False},
     1: {"description": "foreign_color", "name": "foreign",        "color": None, "pass": False},
     2: {"description": "other_rubber",  "name": "other_rubber",  "color": None, "pass": False},
     3: {"description": "wet2",           "name": "wet2",           "color": None, "pass": False},
 }
+
+_DOT_CLASSIFY_CLASSES = _CLASSIFY_CLASSES
 
 _SHOW = {
     "anomaly_map": False,
@@ -114,8 +127,9 @@ def build_profile(checkpoint_root: str) -> Profile:
         family="nbr",
 
         cluster_classes=_CLUSTER_CLASSES,
-        classify_classes=None,
+        classify_classes=_CLASSIFY_CLASSES,
         segment_classes=_SEGMENT_CLASSES,
+        dot_classify_classes=_DOT_CLASSIFY_CLASSES,
 
         bgremover={
             "checkpoint": f"{root}/defect/rmbg/weights/_intergrated/full-line/20260309/weights/best.pt",
@@ -131,12 +145,11 @@ def build_profile(checkpoint_root: str) -> Profile:
             "checkpoints_path": f"{root}/defect/classify/weights/NBR/6240+7150/DINOv2_(6240-260124+260214+260215)+(7150-260227+260302)_add-ok.pt",
             "threshold": 0.2,
         },
-        # classifier={
-        #     "checkpoint": f"{root}/defect/classify/weights/NBR/G1+G2+G3/260320_imgsz640_E100_erasing0.0/weights/best.pt",
-        #     "imgsz": 640,
-        #     "threshold": 0.0,
-        # },
-        classifier=None,
+        classifier={
+            "checkpoint": f"{root}/defect/classify/weights/NBR/G1+G2+G3/260320_imgsz640_E100_erasing0.0/weights/best.pt",
+            "imgsz": 640,
+            "threshold": 0.0,
+        },
         segmenter={
             "checkpoint": f"{root}/defect/segment/weights/NBR/G1+G2+G3/260320_imgsz640_E100/weights/best.pt",
             "imgsz": 640,
@@ -149,6 +162,11 @@ def build_profile(checkpoint_root: str) -> Profile:
         },
         dot_detector2=None,
         dot_cluster=None,
+        dot_classifier={
+            "checkpoint": f"{root}/defect/classify/weights/NBR/G1+G2+G3/260320_imgsz640_E100_erasing0.0/weights/best.pt",
+            "imgsz": 640,
+            "threshold": 0.0,
+        },
         dot_confidence_by_side={
             "side2": 0.6,
             "side3": 0.6,

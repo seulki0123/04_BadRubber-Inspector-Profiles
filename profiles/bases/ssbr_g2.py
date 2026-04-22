@@ -50,9 +50,10 @@ def build_profile(checkpoint_root: str) -> Profile:
     return Profile(
         family="ssbr_g2",
 
+        cluster_classes=None,
         classify_classes=_CLASSIFY_CLASSES,
         segment_classes=_SEGMENT_CLASSES,
-        cluster_classes=None,
+        dot_classify_classes=None,
 
         bgremover={
             "checkpoint": f"{root}/defect/rmbg/weights/_intergrated/full-line/20260309/weights/best.pt",
@@ -78,6 +79,7 @@ def build_profile(checkpoint_root: str) -> Profile:
         dot_detector1=None,
         dot_detector2=None,
         dot_cluster=None,
+        dot_classifier=None,
 
         baler_classifier={
             "checkpoint": f"{root}/baler/weights/SSBR/ssbr_all_paired/best_model.pth",

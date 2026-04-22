@@ -80,9 +80,10 @@ def build_profile(checkpoint_root: str) -> Profile:
     return Profile(
         family="br",
 
+        cluster_classes=_CLUSTER_CLASSES,
         classify_classes=_CLASSIFY_CLASSES,
         segment_classes=None,
-        cluster_classes=_CLUSTER_CLASSES,
+        dot_classify_classes=None,
 
         bgremover={
             "checkpoint": f"{root}/defect/rmbg/weights/_intergrated/full-line/20260309/weights/best.pt",
@@ -108,6 +109,7 @@ def build_profile(checkpoint_root: str) -> Profile:
         },
         dot_detector2=None,
         dot_cluster=None,
+        dot_classifier=None,
         dot_confidence_by_side=None,
 
         baler_classifier={

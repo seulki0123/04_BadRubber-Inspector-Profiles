@@ -96,6 +96,17 @@ def _inject_classes(resolved: dict) -> dict:
     if out.get("classifier") is not None and out.get("classify_classes") is not None:
         out["classifier"] = {**out["classifier"], "classes": out["classify_classes"]}
 
+    if out.get("dot_classifier") is not None:
+        if out.get("dot_classify_classes") is None:
+            raise ValueError(
+                "dot_classifier is enabled but `dot_classify_classes` is not set. "
+                "Define dot-specific classes in the base profile or overrides."
+            )
+        out["dot_classifier"] = {
+            **out["dot_classifier"],
+            "classes": out["dot_classify_classes"],
+        }
+
     if out.get("segmenter") is not None and out.get("segment_classes") is not None:
         out["segmenter"] = {**out["segmenter"], "classes": out["segment_classes"]}
 
@@ -112,7 +123,7 @@ def to_defect_detection_config(resolved: dict) -> dict:
     """Shape the resolved profile into the dict structure historically returned
     by `utils.config.load_config()` for DefectDetection.
 
-    Keys: bgremover, anomalyclip, classifier, segmenter, anomaly_cluster,
+    Keys: bgremover, anomalyclip, classifier, dot_classifier, segmenter, anomaly_cluster,
     dot_detector1, dot_detector2, dot_cluster, dot_confidence_by_side,
     show, return_mode.
     """
@@ -121,6 +132,7 @@ def to_defect_detection_config(resolved: dict) -> dict:
         "bgremover": shaped.get("bgremover"),
         "anomalyclip": shaped.get("anomalyclip"),
         "classifier": shaped.get("classifier"),
+        "dot_classifier": shaped.get("dot_classifier"),
         "segmenter": shaped.get("segmenter"),
         "anomaly_cluster": shaped.get("anomaly_cluster"),
         "dot_detector1": shaped.get("dot_detector1"),

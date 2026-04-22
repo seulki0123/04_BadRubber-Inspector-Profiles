@@ -30,6 +30,7 @@ class Profile:
 
     # classes (int-keyed: class_id -> entry)
     classify_classes: Optional[Dict[int, Dict[str, Any]]] = None
+    dot_classify_classes: Optional[Dict[int, Dict[str, Any]]] = None
     segment_classes: Optional[Dict[int, Dict[str, Any]]] = None
 
     # cluster classes (str-keyed: cluster label -> entry with class_id inside)
@@ -43,6 +44,7 @@ class Profile:
     anomaly_cluster: Optional[Dict[str, Any]] = None
     dot_detector1: Optional[Dict[str, Any]] = None
     dot_detector2: Optional[Dict[str, Any]] = None
+    dot_classifier: Optional[Dict[str, Any]] = None
     dot_cluster: Optional[Dict[str, Any]] = None
     dot_confidence_by_side: Optional[Dict[str, float]] = None
 
@@ -165,7 +167,7 @@ def apply_profile_overrides(base: dict, overrides: Optional[dict]) -> dict:
         raise TypeError(f"overrides must be a dict, got {type(overrides).__name__}")
 
     # Field-shape validation for immutable-key sections
-    for section in ("classify_classes", "segment_classes"):
+    for section in ("classify_classes", "dot_classify_classes", "segment_classes"):
         if section in overrides:
             validate_classes_override(base.get(section), overrides[section], section)
     if "cluster_classes" in overrides:
