@@ -7,18 +7,18 @@ from profiles._schema import Profile
 
 _CLUSTER_CLASSES = {
     # NG - debris
-    'NG-파우더':                   {"class_id": 0, "name": "wet",          "color": (0,0,255), "pass": False},
-    'NG-파우더-작은편':            {"class_id": 1, "name": "wet",          "color": (0,0,255), "pass": False},
-    'NG-파우더-수동추가':          {"class_id": 2, "name": "wet",          "color": (0,0,255), "pass": False},
+    'NG-파우더':                   {"class_id": 0, "name": "wet2",          "color": (0,0,255), "pass": False},
+    'NG-파우더-작은편':            {"class_id": 1, "name": "wet2",          "color": (0,0,255), "pass": False},
+    'NG-파우더-수동추가':          {"class_id": 2, "name": "wet2",          "color": (0,0,255), "pass": False},
 
     # NG - wet
-    'NG-수분-수동수분':            {"class_id": 3, "name": "wet",           "color": (0,0,255), "pass": False},
-    'NG-수분-수동수분-콩알':       {"class_id": 4, "name": "wet",            "color": (0,0,255), "pass": False},
-    'NG-수분-수동수분-콩알-비정형': {"class_id": 5, "name": "wet",            "color": (0,0,255), "pass": False},
-    'NG-수분-수동추가1':           {"class_id": 6, "name": "wet",           "color": (0,0,255), "pass": False},
-    'NG-수분-매우선명':            {"class_id": 7, "name": "wet",           "color": (0,0,255), "pass": False},
-    'NG-수분-매우선명-가운데':      {"class_id": 8, "name": "wet",           "color": (0,0,255), "pass": False},
-    'NG-수분-고무옆면':            {"class_id": 9, "name": "wet",           "color": (0,0,255), "pass": False},
+    'NG-수분-수동수분':            {"class_id": 3, "name": "wet2",           "color": (0,0,255), "pass": False},
+    'NG-수분-수동수분-콩알':       {"class_id": 4, "name": "wet2",            "color": (0,0,255), "pass": False},
+    'NG-수분-수동수분-콩알-비정형': {"class_id": 5, "name": "wet2",            "color": (0,0,255), "pass": False},
+    'NG-수분-수동추가1':           {"class_id": 6, "name": "wet2",           "color": (0,0,255), "pass": False},
+    'NG-수분-매우선명':            {"class_id": 7, "name": "wet2",           "color": (0,0,255), "pass": False},
+    'NG-수분-매우선명-가운데':      {"class_id": 8, "name": "wet2",           "color": (0,0,255), "pass": False},
+    'NG-수분-고무옆면':            {"class_id": 9, "name": "wet2",           "color": (0,0,255), "pass": False},
 
     # NG - worm
     'NG-지렁이':                   {"class_id": 10, "name": "other-rubber",          "color": (0,0,255), "pass": False},
@@ -33,7 +33,7 @@ _CLUSTER_CLASSES = {
 
     # OK - debris
     '부스러기':                    {"class_id": 17, "name": "debris",        "color": (255,255,255), "pass": True},
-    '부스러기-왕큰':               {"class_id": 18, "name": "wet",           "color": (0,0,255), "pass": False},
+    '부스러기-왕큰':               {"class_id": 18, "name": "wet2",           "color": (0,0,255), "pass": False},
     '테두리-하단-부스러기':        {"class_id": 19, "name": "edge-debris",   "color": (255,255,255), "pass": True},
 
     # OK - rubber
@@ -93,7 +93,7 @@ _SEGMENT_CLASSES = {
     0: {"description": "foreign_black", "name": "foreign",        "color": None, "pass": False},
     1: {"description": "foreign_color", "name": "foreign",        "color": None, "pass": False},
     2: {"description": "other_rubber",  "name": "other_rubber",  "color": None, "pass": False},
-    3: {"description": "wet",           "name": "wet",           "color": None, "pass": False},
+    3: {"description": "wet2",           "name": "wet2",           "color": None, "pass": False},
 }
 
 _SHOW = {
@@ -122,10 +122,10 @@ def build_profile(checkpoint_root: str) -> Profile:
             "imgsz": 672,
         },
         anomalyclip={
-            "checkpoint": f"{root}/defect/anomaly/weights/9_12_4_mvtec+(NBR-6230)/epoch_15.pth",
+            "checkpoint": f"{root}/defect/anomaly/weights/9_12_4_mvtec+(BR-A_1208)+(BR-B_F3626E)+(BR-C_1280+GNDn5)+(NBR-6230)+(SSBR-F1038+F1810+F0010+M0511+M1525+M2520+F3626Y+2550(H)+F2150+F2743)/epoch_15.pth",
             "imgsz": 512,
-            "threshold": 0.25,
-            "min_area": 5700,
+            "threshold": 0.0,
+            "min_area": 3000,
         },
         anomaly_cluster={
             "checkpoints_path": f"{root}/defect/classify/weights/NBR/6240+7150/DINOv2_(6240-260124+260214+260215)+(7150-260227+260302)_add-ok.pt",

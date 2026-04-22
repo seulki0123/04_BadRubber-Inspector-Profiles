@@ -4,19 +4,16 @@
 # and free scalars elsewhere).
 profiles:
 
-  # ---------- SSBR ----------
+  # ---------- SSBR G2 ----------
   - line: SSBR
-    grade: F2150
-    extends: ssbr_g3
+    grade: 2550H
+    extends: ssbr_g2
 
   - line: SSBR
-    grade: M0511
-    extends: ssbr_g3
-
-  - line: SSBR
-    grade: M1525
-    extends: ssbr_g3
-
+    grade: F3626Y
+    extends: ssbr_g2
+  
+  # ---------- SSBR G3 ----------
   - line: SSBR
     grade: M2520
     extends: ssbr_g3
@@ -24,6 +21,42 @@ profiles:
       segment_classes:
         2: # wet-brwon
           pass: false
+
+  - line: SSBR
+    grade: M3626
+    extends: ssbr_g3
+
+  - line: SSBR
+    grade: H1713
+    extends: ssbr_g3
+
+  - line: SSBR
+    grade: F1038
+    extends: ssbr_g3
+
+  - line: SSBR
+    grade: F1810
+    extends: ssbr_g3
+
+  - line: SSBR
+    grade: F2150
+    extends: ssbr_g3
+
+  - line: SSBR
+    grade: F2743
+    extends: ssbr_g3
+
+  - line: SSBR
+    grade: F0010
+    extends: ssbr_g3
+
+  - line: SSBR
+    grade: M1525
+    extends: ssbr_g3
+
+  - line: SSBR
+    grade: M0511
+    extends: ssbr_g3
 
   - line: SSBR
     grade: F3626Y
@@ -37,3 +70,90 @@ profiles:
   - line: BR-C
     grade: BR1280
     extends: br
+
+  - line: BR-C
+    grade: GND45
+    extends: br
+
+  - line: BR-C
+    grade: GND55
+    extends: br
+
+  # ---------- BR-B G2 ----------
+  - line: BR-B
+    grade: 2550H
+    extends: br_g2
+
+  - line: BR-B
+    grade: "3824"
+    extends: br_g2
+
+  - line: BR-B
+    grade: "F3626A"
+    extends: br_g2
+
+  - line: BR-B
+    grade: "F3438"
+    extends: br_g2
+
+  - line: BR-B
+    grade: "M3626"
+    extends: br_g2
+
+  # ---------- BR-B G3 ----------
+  - line: BR-B
+    grade: "F3626E"
+    extends: br_g3
+
+  - line: BR-B
+    grade: "F2150"
+    extends: br_g3
+
+  - line: BR-B
+    grade: F3626E
+    extends: br_g3
+
+  - line: BR-B
+    grade: M2520
+    extends: br_g3
+    overrides:
+      segment_classes:
+        2: # wet-brwon
+          pass: false
+
+  # ---------- NBR ----------
+  - line: NBR
+    grade: "6230"
+    extends: nbr
+
+  - line: NBR
+    grade: "6240"
+    extends: nbr
+
+  - line: NBR
+    grade: "6250"
+    extends: nbr
+
+  - line: NBR
+    grade: "6260"
+    extends: nbr
+
+  - line: NBR
+    grade: "2860"
+    extends: nbr
+
+  - line: NBR
+    grade: "6850"
+    extends: nbr
+
+  - line: NBR
+    grade: "6280"
+    extends: nbr
+
+  - line: NBR
+    grade: "7150"
+    extends: nbr
+
+  - line: NBR
+    grade: "2875"
+    extends: nbr

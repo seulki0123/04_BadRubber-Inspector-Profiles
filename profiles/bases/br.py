@@ -89,10 +89,10 @@ def build_profile(checkpoint_root: str) -> Profile:
             "imgsz": 672,
         },
         anomalyclip={
-            "checkpoint": f"{root}/defect/anomaly/weights/9_12_4_mvtec+(BR-A_1208)+(BR-C_1280)/epoch_15.pth",
+            "checkpoint": f"{root}/defect/anomaly/weights/9_12_4_mvtec+(BR-A_1208)+(BR-B_F3626E)+(BR-C_1280+GNDn5)+(NBR-6230)+(SSBR-F1038+F1810+F0010+M0511+M1525+M2520+F3626Y+2550(H)+F2150+F2743)/epoch_15.pth",
             "imgsz": 512,
-            "threshold": 0.25,
-            "min_area": 5700,
+            "threshold": 0.0,
+            "min_area": 3000,
         },
         anomaly_cluster=None,
         classifier={
