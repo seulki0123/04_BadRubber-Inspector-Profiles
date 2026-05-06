@@ -107,8 +107,34 @@ def _inject_classes(resolved: dict) -> dict:
             "classes": out["dot_classify_classes"],
         }
 
-    if out.get("segmenter") is not None and out.get("segment_classes") is not None:
-        out["segmenter"] = {**out["segmenter"], "classes": out["segment_classes"]}
+    if out.get("segmenter") is not None:
+        seg = out["segmenter"]
+        if isinstance(seg, dict):
+            # legacy single-model: inject shared `segment_classes` if present
+            if out.get("segment_classes") is not None:
+                out["segmenter"] = {**seg, "classes": out["segment_classes"]}
+        elif isinstance(seg, list):
+            # multi-checkpoint: each entry must carry its own `classes` inline
+            normalized = []
+            for i, entry in enumerate(seg):
+                if not isinstance(entry, dict):
+                    raise TypeError(
+                        f"segmenter[{i}] must be a dict, got {type(entry).__name__}"
+                    )
+                if "checkpoint" not in entry:
+                    raise ValueError(f"segmenter[{i}] missing 'checkpoint' field")
+                if entry.get("classes") is None:
+                    raise ValueError(
+                        f"segmenter[{i}] missing 'classes'. In multi-checkpoint mode "
+                        "each entry must define its own `classes` dict (use "
+                        "`pass: True` to opt this model out of a class)."
+                    )
+                normalized.append(entry)
+            out["segmenter"] = normalized
+        else:
+            raise TypeError(
+                f"segmenter must be a dict or list of dicts, got {type(seg).__name__}"
+            )
 
     if out.get("anomaly_cluster") is not None and out.get("cluster_classes") is not None:
         out["anomaly_cluster"] = {**out["anomaly_cluster"], "classes": out["cluster_classes"]}

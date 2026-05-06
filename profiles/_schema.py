@@ -15,11 +15,17 @@ Profiles are resolved in three layers (lowest to highest precedence):
 from __future__ import annotations
 
 from dataclasses import dataclass, field, asdict
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional, Union
 
 
 CLASSES_OVERRIDABLE_FIELDS = frozenset({"name", "color", "pass", "description"})
 CLUSTER_OVERRIDABLE_FIELDS = frozenset({"name", "color", "pass"})
+
+
+# `segmenter` may be either a single-model dict (legacy: classes injected from
+# `segment_classes`) or a list of model dicts (multi-checkpoint, each carries
+# its own `classes` inline).
+SegmenterConfig = Union[Dict[str, Any], List[Dict[str, Any]]]
 
 
 @dataclass
@@ -31,6 +37,8 @@ class Profile:
     # classes (int-keyed: class_id -> entry)
     classify_classes: Optional[Dict[int, Dict[str, Any]]] = None
     dot_classify_classes: Optional[Dict[int, Dict[str, Any]]] = None
+    # Only used when `segmenter` is the legacy single-model dict form.
+    # For multi-model `segmenter` (List[Dict]), put `classes` inline per entry.
     segment_classes: Optional[Dict[int, Dict[str, Any]]] = None
 
     # cluster classes (str-keyed: cluster label -> entry with class_id inside)
@@ -40,7 +48,7 @@ class Profile:
     bgremover: Optional[Dict[str, Any]] = None
     anomalyclip: Optional[Dict[str, Any]] = None
     classifier: Optional[Dict[str, Any]] = None
-    segmenter: Optional[Dict[str, Any]] = None
+    segmenter: Optional[SegmenterConfig] = None
     anomaly_cluster: Optional[Dict[str, Any]] = None
     dot_detector1: Optional[Dict[str, Any]] = None
     dot_detector2: Optional[Dict[str, Any]] = None
@@ -165,6 +173,21 @@ def apply_profile_overrides(base: dict, overrides: Optional[dict]) -> dict:
 
     if not isinstance(overrides, dict):
         raise TypeError(f"overrides must be a dict, got {type(overrides).__name__}")
+
+    # `segment_classes` is only meaningful for the legacy single-model
+    # `segmenter` dict form. If the (possibly already-overridden) base uses the
+    # multi-checkpoint list form, an attempted `segment_classes` override would
+    # silently do nothing -> reject explicitly.
+    if "segment_classes" in overrides:
+        effective_segmenter = (
+            overrides["segmenter"] if "segmenter" in overrides else base.get("segmenter")
+        )
+        if isinstance(effective_segmenter, list):
+            raise ValueError(
+                "segment_classes override is not supported when `segmenter` is a list "
+                "of checkpoints. Override the per-entry `classes` inline within "
+                "`segmenter:` instead (or replace the whole `segmenter:` list)."
+            )
 
     # Field-shape validation for immutable-key sections
     for section in ("classify_classes", "dot_classify_classes", "segment_classes"):

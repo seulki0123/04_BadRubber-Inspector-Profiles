@@ -58,6 +58,15 @@ profiles:
     grade: M0511
     extends: ssbr_g3
 
+  # ---------- BR-A ----------
+  - line: BR-A
+    grade: BR1208
+    extends: br
+    overrides:
+      classify_classes:
+        2: # wet
+          pass: false
+
   # ---------- BR-C ----------
   - line: BR-C
     grade: BR1280

@@ -124,6 +124,79 @@ profiles:
 
 ---
 
+## Segmenter — 단일 vs 멀티 체크포인트
+
+`segmenter` 필드는 두 가지 형식을 모두 받는다.
+
+### 1) 단일 체크포인트 (레거시, 자동 주입)
+
+`segmenter` 가 dict 면 별도의 `segment_classes` 가 `segmenter["classes"]` 로 자동 주입된다 (기존 동작).
+
+```python
+# bases/ssbr_g3.py
+_SEGMENT_CLASSES = {
+    0: {"description": "other-rubber", "name": "other-rubber", "color": None, "pass": False},
+    1: {"description": "wet",          "name": "wet",          "color": None, "pass": False},
+}
+
+Profile(
+    ...
+    segment_classes=_SEGMENT_CLASSES,
+    segmenter={
+        "checkpoint": f"{root}/.../seg/best.pt",
+        "imgsz": 640,
+        "threshold": 0.25,
+    },
+)
+```
+
+### 2) 멀티 체크포인트 (list-form)
+
+`segmenter` 가 list 면 각 엔트리가 자기 `classes` 를 인라인으로 들고 있어야 한다. `Segmenter` 는 모델을 순서대로 돌려가며 polygon 을 **공용 `class_polys` 에 클래스 이름 단위로** 쌓는다 (같은 `name` 끼리는 mask union 으로 병합).
+
+각 모델이 **그 클래스를 쓸지 말지** 는:
+- `classes` 에서 빼버리거나
+- 그 entry 에 `pass: True`
+
+```python
+# 모델별 클래스 테이블 — 모델마다 학습된 class_id 가 다를 수 있고,
+# `name` 이 같으면 최종 출력에서 동일 클래스로 머지된다.
+_SEG_OTHER_RUBBER_CLASSES = {
+    0: {"name": "other-rubber", "color": None, "pass": False},
+}
+
+_SEG_WET_CLASSES = {
+    0: {"name": "other-rubber", "color": None, "pass": False},
+    1: {"name": "wet",          "color": None, "pass": False},
+}
+
+Profile(
+    ...
+    segment_classes=None,   # 멀티 모드에서는 사용하지 않음
+    segmenter=[
+        {
+            "checkpoint": f"{root}/.../seg_other_rubber/best.pt",
+            "imgsz": 640,
+            "threshold": 0.25,
+            "classes": _SEG_OTHER_RUBBER_CLASSES,   # other-rubber 만 사용
+        },
+        {
+            "checkpoint": f"{root}/.../seg_wet/best.pt",
+            "imgsz": 640,
+            "threshold": 0.25,
+            "classes": _SEG_WET_CLASSES,            # wet, other-rubber 둘 다 사용
+        },
+    ],
+)
+```
+
+### 멀티 모드에서의 override 규칙
+
+- 멀티 모드일 때 `segment_classes` 키로는 override 할 수 없다 (loader 가 `ValueError` 를 던진다).
+- 한 entry 의 threshold 같은 걸 손보고 싶으면 `segmenter:` 자체를 list 로 통째로 다시 써서 deep-merge 가 아니라 **replacement** 가 일어나게 한다.
+
+---
+
 ## 새 항목 추가
 
 ### 새 (line, grade) 추가 — 기존 family 사용
