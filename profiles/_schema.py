@@ -52,6 +52,7 @@ class Profile:
     anomaly_cluster: Optional[Dict[str, Any]] = None
     dot_detector1: Optional[Dict[str, Any]] = None
     dot_detector2: Optional[Dict[str, Any]] = None
+    tile_detector: Optional[Dict[str, Any]] = None
     dot_classifier: Optional[Dict[str, Any]] = None
     dot_cluster: Optional[Dict[str, Any]] = None
     dot_confidence_by_side: Optional[Dict[str, float]] = None

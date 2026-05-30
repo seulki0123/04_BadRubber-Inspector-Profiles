@@ -150,7 +150,7 @@ def to_defect_detection_config(resolved: dict) -> dict:
     by `utils.config.load_config()` for DefectDetection.
 
     Keys: bgremover, anomalyclip, classifier, dot_classifier, segmenter, anomaly_cluster,
-    dot_detector1, dot_detector2, dot_cluster, dot_confidence_by_side,
+    dot_detector1, dot_detector2, tile_detector, dot_cluster, dot_confidence_by_side,
     show, return_mode.
     """
     shaped = _inject_classes(resolved)
@@ -163,6 +163,7 @@ def to_defect_detection_config(resolved: dict) -> dict:
         "anomaly_cluster": shaped.get("anomaly_cluster"),
         "dot_detector1": shaped.get("dot_detector1"),
         "dot_detector2": shaped.get("dot_detector2"),
+        "tile_detector": shaped.get("tile_detector"),
         "dot_cluster": shaped.get("dot_cluster"),
         "dot_confidence_by_side": shaped.get("dot_confidence_by_side"),
         "show": shaped.get("show") or {},
