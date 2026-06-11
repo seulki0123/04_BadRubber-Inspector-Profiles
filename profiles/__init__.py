@@ -166,6 +166,7 @@ def to_defect_detection_config(resolved: dict) -> dict:
         "tile_detector": shaped.get("tile_detector"),
         "dot_cluster": shaped.get("dot_cluster"),
         "dot_confidence_by_side": shaped.get("dot_confidence_by_side"),
+        "patchcore": shaped.get("patchcore"),
         "show": shaped.get("show") or {},
         "return_mode": shaped.get("return_mode"),
     }

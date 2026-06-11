@@ -57,6 +57,9 @@ class Profile:
     dot_cluster: Optional[Dict[str, Any]] = None
     dot_confidence_by_side: Optional[Dict[str, float]] = None
 
+    # PatchCore 메모리뱅크 기반 전역 이상점수 검출 ('etc')
+    patchcore: Optional[Dict[str, Any]] = None
+
     # baler_classification
     baler_classifier: Optional[Dict[str, Any]] = None
 
