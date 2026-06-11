@@ -59,6 +59,8 @@ class Profile:
 
     # PatchCore 메모리뱅크 기반 전역 이상점수 검출 ('etc')
     patchcore: Optional[Dict[str, Any]] = None
+    # PatchCore 를 side 별로 활성화/비활성화 (미지정 시 활성)
+    patchcore_active_by_side: Optional[Dict[str, bool]] = None
 
     # baler_classification
     baler_classifier: Optional[Dict[str, Any]] = None
