@@ -80,6 +80,11 @@ profiles:
     grade: GND55
     extends: br
 
+  # ---------- BR-B G1 ----------
+  - line: BR-B
+    grade: F2743
+    extends: br_g1_260508_2
+
   # ---------- BR-B G2 ----------
   - line: BR-B
     grade: 2550H
@@ -87,11 +92,14 @@ profiles:
 
   - line: BR-B
     grade: "3824"
-    extends: br_g2
+    extends: br_g2_0603
+    # modify : Jongnam
 
   - line: BR-B
     grade: "F3626A"
-    extends: br_g2
+    # extends: br_g2
+    # extends: br_g2_0520
+    extends: br_g3
 
   - line: BR-B
     grade: "F3438"
@@ -108,7 +116,12 @@ profiles:
 
   - line: BR-B
     grade: "F2150"
-    extends: br_g3
+    # extends: br_g3
+    # extends: br_g2_0603
+    # extends: br_g2_0611
+    # extends: br_g2_0612 # (s1k2) br_g2_0612+etc 전 설정
+    # extends: br_g1_260508_2
+    extends: br_g2_0612+etc
 
   - line: BR-B
     grade: F3626E
