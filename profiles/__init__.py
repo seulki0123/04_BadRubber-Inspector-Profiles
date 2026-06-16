@@ -1,55 +1,59 @@
 """Grade Selection loader.
 
-Given `(line, grade)` from `production_information`, this module resolves the
-final configuration in three layers:
+Given `(line, grade)` from `production_information`, the foundation profile is
+resolved purely by convention:
 
-    1. bases/<family>.py                  foundation profile (Python dataclass)
-    2. registry.yaml entry `overrides`    per-grade tweaks (YAML)
-    3. caller-supplied overrides          per-run experiment/debug (YAML)
+    products/<LINE>/_<grade>.py        where <LINE> = line.replace("-", "")
 
-The resolved dict is then reshaped into what `Detector`, `BalerClassification`
+e.g. (line="BR-B", grade="F2150")  ->  profiles.products.BRB._F2150
+
+Each base module exports `build_profile(checkpoint_root) -> Profile`. The
+resolved Profile is then reshaped into what `Detector`, `BalerClassification`
 and friends already consume: `classifier.classes`, `segmenter.classes`, etc.
+
+There is no registry and no override layer: everything a (line, grade) needs
+(classes, checkpoints, thresholds, `return_mode`, `show`) lives in its base
+profile module.
 """
 from __future__ import annotations
 
 import importlib
 import os
-from pathlib import Path
-from typing import Any, Dict, Optional, Tuple
+from typing import Tuple
 
 import yaml
 
-from ._schema import Profile, apply_profile_overrides
+from ._schema import Profile
 
 
-_REGISTRY_PATH = Path(__file__).with_name("registry.yaml")
+# ---------------------------------
+# Foundation profile resolution (convention-based)
+# ---------------------------------
+
+def _base_module(line: str, grade: str) -> str:
+    """Module path of the foundation profile for a (line, grade) pair.
+
+    Convention: `products/<LINE>/_<grade>.py` with `<LINE> = line` minus dashes.
+    """
+    folder = line.replace("-", "")
+    return f"profiles.products.{folder}._{grade}"
 
 
-def _load_registry() -> list:
-    with open(_REGISTRY_PATH, "r", encoding="utf-8") as f:
-        data = yaml.safe_load(f) or {}
-    entries = data.get("profiles", [])
-    if not isinstance(entries, list):
-        raise ValueError(f"registry.yaml: 'profiles' must be a list, got {type(entries).__name__}")
-    return entries
-
-
-def _find_registry_entry(line: str, grade: str) -> dict:
-    for entry in _load_registry():
-        if entry.get("line") == line and str(entry.get("grade")) == str(grade):
-            return entry
-    raise ValueError(
-        f"No profile registered for (line={line!r}, grade={grade!r}). "
-        f"Add an entry to {_REGISTRY_PATH}."
-    )
-
-
-def _load_base_profile(family: str, checkpoint_root: str) -> Profile:
-    mod_name = f"profiles.bases.{family}"
+def _load_base_profile(line: str, grade: str, checkpoint_root: str) -> Profile:
+    mod_name = _base_module(line, grade)
     try:
         module = importlib.import_module(mod_name)
     except ModuleNotFoundError as e:
-        raise ValueError(f"Base profile module not found: {mod_name}") from e
+        # Only treat this as "no such profile" when the *target* module (or its
+        # package) is what's missing. A bad import *inside* an existing profile
+        # file must surface as-is, not be masked as an unknown grade.
+        if e.name and mod_name.startswith(e.name):
+            folder = line.replace("-", "")
+            raise ValueError(
+                f"No profile for (line={line!r}, grade={grade!r}): expected "
+                f"module {mod_name} (file products/{folder}/_{grade}.py)."
+            ) from e
+        raise
     if not hasattr(module, "build_profile"):
         raise ValueError(
             f"{mod_name} must export `build_profile(checkpoint_root) -> Profile`"
@@ -57,13 +61,8 @@ def _load_base_profile(family: str, checkpoint_root: str) -> Profile:
     return module.build_profile(checkpoint_root)
 
 
-def load_profile(
-    line: str,
-    grade: str,
-    checkpoint_root: str,
-    extra_overrides: Optional[dict] = None,
-) -> dict:
-    """Resolve base + registry overrides + (optional) extra overrides into a dict.
+def load_profile(line: str, grade: str, checkpoint_root: str) -> dict:
+    """Resolve the (line, grade) foundation profile into a plain dict.
 
     `checkpoint_root` is injected into the base profile factory so every
     checkpoint path is anchored at a single user-controlled root.
@@ -72,15 +71,7 @@ def load_profile(
     """
     if not checkpoint_root:
         raise ValueError("load_profile: `checkpoint_root` must be a non-empty path.")
-
-    entry = _find_registry_entry(line, grade)
-    base = _load_base_profile(entry["extends"], checkpoint_root).to_dict()
-
-    resolved = apply_profile_overrides(base, entry.get("overrides"))
-    if extra_overrides:
-        resolved = apply_profile_overrides(resolved, extra_overrides)
-
-    return resolved
+    return _load_base_profile(line, grade, checkpoint_root).to_dict()
 
 
 # ---------------------------------
@@ -100,7 +91,7 @@ def _inject_classes(resolved: dict) -> dict:
         if out.get("dot_classify_classes") is None:
             raise ValueError(
                 "dot_classifier is enabled but `dot_classify_classes` is not set. "
-                "Define dot-specific classes in the base profile or overrides."
+                "Define dot-specific classes in the base profile."
             )
         out["dot_classifier"] = {
             **out["dot_classifier"],
@@ -208,61 +199,13 @@ def _checkpoint_root(raw: dict, config_path: str | os.PathLike) -> str:
     return root.strip()
 
 
-_LEGACY_FIELDS_MSG = (
-    "Put `return_mode` under `production_information:` (top-level of config.yaml) "
-    "and `show` as a flat `defect_detection.show:` block. The `overrides:` block "
-    "is reserved for model/checkpoint/threshold/classes tweaks only."
-)
-
-
-def _reject_legacy_in_overrides(overrides: Optional[dict], source: str) -> None:
-    """`return_mode` and `show` have dedicated top-level paths in config.yaml
-    (see `_LEGACY_FIELDS_MSG`) and must not appear inside a project's
-    `overrides:` block. Registry-level overrides are not subject to this rule.
-    """
-    if not overrides:
-        return
-    offenders = [k for k in ("return_mode", "show") if k in overrides]
-    if offenders:
-        raise ValueError(
-            f"{source}: `overrides:` may not contain {offenders}. {_LEGACY_FIELDS_MSG}"
-        )
-
-
-def build_runtime_overrides(raw: dict, section: str = "defect_detection") -> Optional[dict]:
-    """Translate a project's raw config.yaml into a flat override dict suitable
-    for `load_profile(..., extra_overrides=...)`.
-
-    Rules:
-      - `<section>.overrides` is used as-is, except it must NOT contain
-        `return_mode` or `show` (those have dedicated paths).
-      - `production_information.return_mode` is promoted to `return_mode`.
-      - `defect_detection.show` (deep dict) is promoted to `show`.
-    """
-    sub = raw.get(section) or {}
-    overrides = dict(sub.get("overrides") or {})
-    _reject_legacy_in_overrides(overrides, f"{section}.overrides")
-
-    prod = raw.get("production_information") or {}
-    if prod.get("return_mode") is not None:
-        overrides["return_mode"] = prod["return_mode"]
-
-    show = (raw.get("defect_detection") or {}).get("show")
-    if isinstance(show, dict) and show:
-        overrides["show"] = show
-
-    return overrides or None
-
-
 def resolve_from_file(
     config_path: str | os.PathLike = "config.yaml",
     section: str = "defect_detection",
 ) -> dict:
-    """Load a config.yaml, resolve the profile for its (line, grade), and apply
-    the project-level overrides from that file.
+    """Load a config.yaml and resolve the profile for its (line, grade).
 
-    `section` selects which subtree's overrides apply (and what shape is
-    returned):
+    `section` selects what shape is returned:
 
       - "defect_detection" -> dict for Detector
       - "baler_classification" -> dict for BalerClassification Classifier
@@ -272,10 +215,7 @@ def resolve_from_file(
     line, grade = _production_info(raw)
     checkpoint_root = _checkpoint_root(raw, config_path)
 
-    extra = build_runtime_overrides(raw, section=section)
-    resolved = load_profile(
-        line, grade, checkpoint_root, extra_overrides=extra
-    )
+    resolved = load_profile(line, grade, checkpoint_root)
 
     if section == "profile":
         return resolved

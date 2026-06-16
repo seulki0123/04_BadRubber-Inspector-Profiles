@@ -16,3 +16,4 @@ NAS*
 nas*.sh
 
 tmp/
+.omc/
