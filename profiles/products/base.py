@@ -17,8 +17,12 @@ def build_profile(checkpoint_root: str) -> Profile:
     return Profile(
         family="base",
         bgremover={
-            "checkpoint": f"{root}/defect/rmbg/weights/_intergrated/full-line/20260309/weights/best.pt",
+            "checkpoint": f"{root}/defect/rmbg/weights/_intergrated/full-line/rmbg_0709/weights/best.pt",
             "imgsz": 672,
+            "use_blur_mask": True,
+            "blur_kernel": 501,
+            "blur_threshold": 0.60,
+            "blur_resize_scale": 0.25,
         },
         anomalyclip={
             "checkpoint": f"{root}/defect/anomaly/weights/9_12_4_mvtec+(BR-A_1208)+(BR-B_F3626E)+(BR-C_1280+GNDn5)+(NBR-6230)+(SSBR-F1038+F1810+F0010+M0511+M1525+M2520+F3626Y+2550(H)+F2150+F2743)/epoch_15.pth",
