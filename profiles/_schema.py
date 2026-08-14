@@ -46,6 +46,7 @@ class Profile:
 
     # defect_detection stages
     bgremover: Optional[Dict[str, Any]] = None
+    anomaly_extractor: Optional[Dict[str, Any]] = None
     anomalyclip: Optional[Dict[str, Any]] = None
     classifier: Optional[Dict[str, Any]] = None
     segmenter: Optional[SegmenterConfig] = None
