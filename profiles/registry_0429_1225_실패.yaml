@@ -16,8 +16,11 @@ profiles:
   # ---------- SSBR G3 ----------
   - line: SSBR
     grade: M2520
-#    extends: ssbr_g3_260506-M2520-2
-    extends: ssbr_g3_260507-M2520-3
+    extends: ssbr_g3
+    overrides:
+      segment_classes:
+        2: # wet-brwon
+          pass: false
 
   - line: SSBR
     grade: M3626
@@ -29,12 +32,11 @@ profiles:
 
   - line: SSBR
     grade: F1038
-    extends: ssbr_g1_0529
+    extends: ssbr_g1
 
   - line: SSBR
     grade: F1810
-    # extends: ssbr_g3
-    extends: ssbr_g3_0522
+    extends: ssbr_g3
 
   - line: SSBR
     grade: F2150
@@ -42,7 +44,7 @@ profiles:
 
   - line: SSBR
     grade: F2743
-    extends: ssbr_g3
+    extends: ssbr_g1
 
   - line: SSBR
     grade: F0010
@@ -50,24 +52,11 @@ profiles:
 
   - line: SSBR
     grade: M1525
-    # extends: ssbr_g3
-    # extends: ssbr_g1_0529
-    extends: ssbr_g1_0605
+    extends: ssbr_g3
 
   - line: SSBR
     grade: M0511
-    # extends: ssbr_g3
-    # extends: ssbr_g3_0520test
-    extends: ssbr_g3_0520test+dot
-
-  # ---------- BR-A ----------
-  - line: BR-A
-    grade: BR1208
-    extends: br
-    overrides:
-      classify_classes:
-        2: # wet
-          pass: false
+    extends: ssbr_g3
 
   # ---------- BR-C ----------
   - line: BR-C

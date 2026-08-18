@@ -53,6 +53,12 @@ _SEG_ALL_CLASSES = {
     2: {"description": "wet-brown",    "name": "wet",          "color": None, "pass": False},
 }
 
+# 13_05+08-2+112 전용, 학습 할 때 other-rubber / wet 순서가 바뀜, 임시조치 ★★★★★
+_SEG_TMP_CLASSES = {
+    0: {"description": "wet",          "name": "wet",          "color": None, "pass": False},
+    1: {"description": "other-rubber", "name": "other-rubber", "color": None, "pass": False},
+}
+
 
 _SHOW = {
     "anomaly_map": False,
@@ -79,6 +85,10 @@ def build_profile(checkpoint_root: str) -> Profile:
         bgremover={
             "checkpoint": f"{root}/defect/rmbg/weights/_intergrated/full-line/20260309/weights/best.pt",
             "imgsz": 672,
+            "use_blur_mask": True,
+            "blur_kernel": 501,
+            "blur_threshold": 0.60,
+            "blur_resize_scale": 0.25,
         },
         anomalyclip={
             "checkpoint": f"{root}/defect/anomaly/weights/9_12_4_mvtec+(BR-A_1208)+(BR-B_F3626E)+(BR-C_1280+GNDn5)+(NBR-6230)+(SSBR-F1038+F1810+F0010+M0511+M1525+M2520+F3626Y+2550(H)+F2150+F2743)/epoch_15.pth",
@@ -94,16 +104,10 @@ def build_profile(checkpoint_root: str) -> Profile:
         },
         segmenter=[
             {
-                "checkpoint": f"{root}/defect/segment/weights/SSBR/G1+G3/260409_erasing0.0_E50/weights/best.pt",
+                "checkpoint": f"{root}/defect/segment/weights/SSBR/G1-F1038+M0511/13_05+08-2+112/weights/best.pt",
                 "imgsz": 640,
                 "threshold": 0.25,
-                "classes": _SEG_OTHER_RUBBER_CLASSES,
-            },
-            {
-                "checkpoint": f"{root}/defect/segment/weights/SSBR/G1+G3/260505+260409/weights/best.pt",
-                "imgsz": 640,
-                "threshold": 0.25,
-                "classes": _SEG_ALL_CLASSES,
+                "classes": _SEG_TMP_CLASSES, # 13_05+08-2+112 전용 임시조치 ★★★★★
             },
         ],
         dot_detector1=None,
