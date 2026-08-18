@@ -8,7 +8,7 @@ def build_profile(checkpoint_root: str) -> Profile:
     base = _build_base(checkpoint_root)
     return replace(
         base,
-        family=None,
+        family="BR-C",
         baler_classifier={
             "checkpoint": f"{root}/baler/weights/BR-C/br_c_all_paired/best_model.pth",
             "img_size": 224,
