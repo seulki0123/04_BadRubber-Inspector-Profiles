@@ -70,15 +70,23 @@ profiles:
   # ---------- BR-C ----------
   - line: BR-C
     grade: BR1280
-    extends: br
-
+    # extends: br
+    # extends: br-0531
+    # extends: br-0531+etc
+    # extends: br-0531+etc+tile
+    # extends: br-0623
+    extends: br-0803
+    
   - line: BR-C
     grade: GND45
-    extends: br
+    # extends: br
+    extends: br-0531+0803dot
 
   - line: BR-C
     grade: GND55
-    extends: br
+#    extends: br
+    extends: br-0531+0803dot
+
 
   # ---------- BR-B G2 ----------
   - line: BR-B

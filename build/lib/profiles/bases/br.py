@@ -80,10 +80,9 @@ def build_profile(checkpoint_root: str) -> Profile:
     return Profile(
         family="br",
 
-        cluster_classes=_CLUSTER_CLASSES,
         classify_classes=_CLASSIFY_CLASSES,
         segment_classes=None,
-        dot_classify_classes=None,
+        cluster_classes=_CLUSTER_CLASSES,
 
         bgremover={
             "checkpoint": f"{root}/defect/rmbg/weights/_intergrated/full-line/20260309/weights/best.pt",
@@ -103,7 +102,7 @@ def build_profile(checkpoint_root: str) -> Profile:
         },
         segmenter=None,
         dot_detector1={
-            "checkpoint": f"{root}/defect/detect/weights/BR/dot/04-18/best.pt",
+            "checkpoint": f"{root}/defect/detect/weights/BR/dot/yolo_2048/weights/best.pt",
             "imgsz": 2048,
             "threshold": 0.3,
         },
@@ -112,14 +111,12 @@ def build_profile(checkpoint_root: str) -> Profile:
             "checkpoints_path": f"{root}/defect/classify/weights/BR/03_BR-dot-add1-2604009.pt",
             "threshold": 0.7,
         },
-        dot_classifier=None,
-        dot_confidence_by_side=None,
 
         baler_classifier={
             "checkpoint": f"{root}/baler/weights/BR-C/br_c_all_paired/best_model.pth",
             "img_size": 224,
             "num_classes": None,
-            "class_names": {0: "0", 1: "1", 2: "A"},
+            "class_names": {0: "0", 1: "1", 2: "2"},
         },
 
         return_mode="anomaly",

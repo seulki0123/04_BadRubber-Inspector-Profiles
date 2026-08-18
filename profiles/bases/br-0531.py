@@ -10,30 +10,30 @@ _CLASSIFY_CLASSES = {
     0:  {"description": "NG-누적고무",              "name": "accumulated",        "color": (0, 0, 255),     "pass": False},
     1:  {"description": "NG-누적고무-점",           "name": "accumulated",        "color": (0, 0, 255),     "pass": False},
     2:  {"description": "NG-수분",                  "name": "wet",                "color": (0, 0, 255),     "pass": False},
-    3:  {"description": "OK-검정배경-별똥별",        "name": "black-5-star",       "color": (255, 255, 255), "pass": True},
-    4:  {"description": "OK-검정배경-부스러기",      "name": "black-3-debris",     "color": (255, 255, 255), "pass": True},
-    5:  {"description": "OK-검정배경-선무언가",      "name": "black-1",            "color": (255, 255, 255), "pass": True},
-    6:  {"description": "OK-검정배경-흰색무언가",    "name": "black-2",            "color": (255, 255, 255), "pass": True},
-    7:  {"description": "OK-고무",                  "name": "rubber",             "color": (255, 255, 255), "pass": True},
-    8:  {"description": "OK-고무-모서리",           "name": "rubber-edge1",       "color": (255, 255, 255), "pass": True},
-    9:  {"description": "OK-고무-모서리-위",         "name": "rubber-edge-up",     "color": (255, 255, 255), "pass": True},
-    10: {"description": "OK-고무-빛과다",           "name": "light1",             "color": (255, 255, 255), "pass": True},
-    11: {"description": "OK-고무-찢어진",           "name": "rubber-edge-down",   "color": (255, 255, 255), "pass": True},
-    12: {"description": "OK-고무-테두리-뒤에조명",    "name": "rubber-edge-light1", "color": (255, 255, 255), "pass": True},
-    13: {"description": "OK-고무-테두리-어둡",       "name": "black-4-edge",       "color": (255, 255, 255), "pass": True},
-    14: {"description": "OK-고무모서리",            "name": "rubber-edge2",       "color": (255, 255, 255), "pass": True},
-    15: {"description": "OK-고무위조명",            "name": "rubber-edge-light2", "color": (255, 255, 255), "pass": True},
-    16: {"description": "OK-날씬및쭈끌고무",        "name": "unformed",           "color": (255, 255, 255), "pass": True},
-    17: {"description": "OK-대왕부스러기",          "name": "big-debris",         "color": (255, 255, 255), "pass": True},
-    18: {"description": "OK-부스러기",              "name": "small-debris",       "color": (255, 255, 255), "pass": True},
-    19: {"description": "OK-부스러기-고무가",        "name": "debris-rubber",      "color": (255, 255, 255), "pass": True},
-    20: {"description": "OK-부스러기-레일쪽",        "name": "debris-rail",        "color": (255, 255, 255), "pass": True},
-    21: {"description": "OK-실지렁이",              "name": "line-worm",          "color": (255, 255, 255), "pass": True},
-    22: {"description": "OK-양각1",                 "name": "dash1",              "color": (255, 255, 255), "pass": True},
-    23: {"description": "OK-양각A",                 "name": "dashA",              "color": (255, 255, 255), "pass": True},
-    24: {"description": "OK-이미지디비",            "name": "inspector",          "color": (255, 255, 255), "pass": True},
-    25: {"description": "OK-조명",                  "name": "light2",             "color": (255, 255, 255), "pass": True},
-    26: {"description": "OK-홈",                    "name": "hole",               "color": (255, 255, 255), "pass": True},
+    3:  {"description": "OK-검정배경-별똥별",        "name": "black-5-star",       "color": (255, 255, 255), "pass": False},
+    4:  {"description": "OK-검정배경-부스러기",      "name": "black-3-debris",     "color": (255, 255, 255), "pass": False},
+    5:  {"description": "OK-검정배경-선무언가",      "name": "black-1",            "color": (255, 255, 255), "pass": False},
+    6:  {"description": "OK-검정배경-흰색무언가",    "name": "black-2",            "color": (255, 255, 255), "pass": False},
+    7:  {"description": "OK-고무",                  "name": "rubber",             "color": (255, 255, 255), "pass": False},
+    8:  {"description": "OK-고무-모서리",           "name": "rubber-edge1",       "color": (255, 255, 255), "pass": False},
+    9:  {"description": "OK-고무-모서리-위",         "name": "rubber-edge-up",     "color": (255, 255, 255), "pass": False},
+    10: {"description": "OK-고무-빛과다",           "name": "light1",             "color": (255, 255, 255), "pass": False},
+    11: {"description": "OK-고무-찢어진",           "name": "rubber-edge-down",   "color": (255, 255, 255), "pass": False},
+    12: {"description": "OK-고무-테두리-뒤에조명",    "name": "rubber-edge-light1", "color": (255, 255, 255), "pass": False},
+    13: {"description": "OK-고무-테두리-어둡",       "name": "black-4-edge",       "color": (255, 255, 255), "pass": False},
+    14: {"description": "OK-고무모서리",            "name": "rubber-edge2",       "color": (255, 255, 255), "pass": False},
+    15: {"description": "OK-고무위조명",            "name": "rubber-edge-light2", "color": (255, 255, 255), "pass": False},
+    16: {"description": "OK-날씬및쭈끌고무",        "name": "unformed",           "color": (255, 255, 255), "pass": False},
+    17: {"description": "OK-대왕부스러기",          "name": "big-debris",         "color": (255, 255, 255), "pass": False},
+    18: {"description": "OK-부스러기",              "name": "small-debris",       "color": (255, 255, 255), "pass": False},
+    19: {"description": "OK-부스러기-고무가",        "name": "debris-rubber",      "color": (255, 255, 255), "pass": False},
+    20: {"description": "OK-부스러기-레일쪽",        "name": "debris-rail",        "color": (255, 255, 255), "pass": False},
+    21: {"description": "OK-실지렁이",              "name": "line-worm",          "color": (255, 255, 255), "pass": False},
+    22: {"description": "OK-양각1",                 "name": "dash1",              "color": (255, 255, 255), "pass": False},
+    23: {"description": "OK-양각A",                 "name": "dashA",              "color": (255, 255, 255), "pass": False},
+    24: {"description": "OK-이미지디비",            "name": "inspector",          "color": (255, 255, 255), "pass": False},
+    25: {"description": "OK-조명",                  "name": "light2",             "color": (255, 255, 255), "pass": False},
+    26: {"description": "OK-홈",                    "name": "hole",               "color": (255, 255, 255), "pass": False},
 }
 
 
@@ -62,15 +62,20 @@ _CLUSTER_CLASSES = {
     'NG-점이물':                             {"class_id": 22,  "name": "foreign",           "color": (0, 0, 255),     "pass": False},
 }
 
+_SEGMENT_CLASSES = {
+    0: {"description": "wet", "name": "wet",        "color": None, "pass": False},
+    1: {"description": "accumulated", "name": "accumulated",        "color": None, "pass": False},
+}
+
 
 _SHOW = {
     "anomaly_map": False,
     "anomaly_score": False,
     "foreground": False,
     "anomaly_regions_polygon": False,
-    "anomaly_regions_bbox": True,
+    "anomaly_regions_bbox": False,
     "segmentation_regions_polygon": False,
-    "segmentation_regions_bbox": False,
+    "segmentation_regions_bbox": True,
     "show_pass_classes": False,
 }
 
@@ -82,7 +87,7 @@ def build_profile(checkpoint_root: str) -> Profile:
 
         cluster_classes=_CLUSTER_CLASSES,
         classify_classes=_CLASSIFY_CLASSES,
-        segment_classes=None,
+        segment_classes=_SEGMENT_CLASSES,
         dot_classify_classes=None,
 
         bgremover={
@@ -101,7 +106,11 @@ def build_profile(checkpoint_root: str) -> Profile:
             "imgsz": 640,
             "threshold": 0.65,
         },
-        segmenter=None,
+        segmenter={
+            "checkpoint": f"{root}/defect/segment/BR-C/G1/09_07+08/weights/best.pt",
+            "imgsz": 640,
+            "threshold": 0.25,
+        },
         dot_detector1={
             "checkpoint": f"{root}/defect/detect/weights/BR/dot/04-18/best.pt",
             "imgsz": 2048,
@@ -122,6 +131,6 @@ def build_profile(checkpoint_root: str) -> Profile:
             "class_names": {0: "0", 1: "1", 2: "A"},
         },
 
-        return_mode="anomaly",
+        return_mode="segment",
         show=_SHOW,
     )
