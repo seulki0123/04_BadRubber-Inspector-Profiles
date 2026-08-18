@@ -60,39 +60,8 @@ profiles:
 
   # ---------- BR-A ----------
   - line: BR-A
-    grade: BR1208
-    # extends: br
-    # extends: br-0531+etc+tile
-    # extends: br-0623
-    extends: br-0803
-    # overrides:
-    #   classify_classes:
-    #     2: # wet
-    #       pass: false
-
-  - line: BR-A
     grade: 2550H
     extends: ssbr_g2
-
-  - line: BR-A
-    grade: F3626E
-    # extends: ssbr_g2
-    # extends: ssbr_g2_0515
-    # extends: ssbr_g2_0520
-    extends: ssbr_g2_0605
-
-  - line: BR-A
-    grade: F3626Y
-    # extends: ssbr_g2
-    extends: ssbr_g2_0522
-
-  - line: BR-A
-    grade: "3824"
-    extends: ssbr_g2
-
-  - line: BR-A
-    grade: F1810
-    extends: ssbr_g2_0610
 
   # ---------- BR-C ----------
   - line: BR-C
