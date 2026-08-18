@@ -156,7 +156,7 @@ def build_profile(checkpoint_root: str) -> Profile:
             "threshold": 0.25,
         },
         dot_detector1={
-            "checkpoint": f"{root}/defect/detect/weights/NBR/best.pt",
+            "checkpoint": f"{root}/defect/detect/weights/BR/dot/04-18/best.pt",
             "imgsz": 2048,
             "threshold": 0.3,
         },
@@ -164,12 +164,12 @@ def build_profile(checkpoint_root: str) -> Profile:
         dot_cluster=None,
         dot_classifier=None,
         dot_confidence_by_side={
-            "side1": 0.4,
-            "side2": 0.4,
-            "side3": 0.4,
-            "side4": 0.4,
-            "side5": 0.4,
-            "side6": 0.4,
+            "side1": 0.5,
+            "side2": 0.8,
+            "side3": 0.8,
+            "side4": 0.8,
+            "side5": 0.8,
+            "side6": 0.8,
         },
 
         baler_classifier={

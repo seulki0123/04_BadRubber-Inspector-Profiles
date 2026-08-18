@@ -125,36 +125,57 @@ profiles:
   # ---------- NBR ----------
   - line: NBR
     grade: "6230"
-    extends: nbr
+    # extends: nbr-0508
+    # extends: nbr-0530
+    # extends: nbr-0531
+    extends: nbr-0623
 
   - line: NBR
     grade: "6240"
-    extends: nbr
+    # extends: nbr-0508
+    # extends: nbr-0530
+    extends: nbr-0623
 
   - line: NBR
     grade: "6250"
-    extends: nbr
+    # extends: nbr-0508
+    # extends: nbr-0522
+    # extends: nbr-0525
+    # extends: nbr-0530
+    extends: nbr-0623
 
   - line: NBR
     grade: "6260"
-    extends: nbr
+    # extends: nbr-0531
+    extends: nbr-0623
 
   - line: NBR
     grade: "2860"
-    extends: nbr
+    # extends: nbr-0531
+    # extends: nbr-0531+etc # 06/15 성능평가 안 됨, 현장 정용
+    extends: nbr-0623 # 점이물 roi 기준 업데이트
 
   - line: NBR
     grade: "6850"
-    extends: nbr
+    # extends: nbr-0531
+    extends: nbr-0623
 
   - line: NBR
     grade: "6280"
-    extends: nbr
+    # extends: nbr-0531
+    extends: nbr-0623
 
   - line: NBR
     grade: "7150"
-    extends: nbr
+    # extends: nbr-0531
+    # extends: nbr-0531+etc
+    extends: nbr-0623
 
   - line: NBR
     grade: "2875"
-    extends: nbr
+    # extends: nbr-0508
+    # extends: nbr-0520
+    # extends: nbr-0522
+    # extends: nbr-0531+etc # 06/15 성능평가 안 됨, 현장 정용
+    # extends: nbr-0623 # 점이물 roi 기준 업데이트
+    extends: nbr-0810
