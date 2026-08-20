@@ -146,6 +146,7 @@ Profile(
         "checkpoint": f"{root}/.../seg/best.pt",
         "imgsz": 640,
         "threshold": 0.25,
+        "target": "crop",  # optional: "crop" (default) or "full"
     },
 )
 ```
@@ -178,12 +179,14 @@ Profile(
             "checkpoint": f"{root}/.../seg_other_rubber/best.pt",
             "imgsz": 640,
             "threshold": 0.25,
+            "target": "crop",  # optional: use anomaly-region patches
             "classes": _SEG_OTHER_RUBBER_CLASSES,   # other-rubber 만 사용
         },
         {
             "checkpoint": f"{root}/.../seg_wet/best.pt",
             "imgsz": 640,
             "threshold": 0.25,
+            "target": "full",  # optional: use the background-removed full image
             "classes": _SEG_WET_CLASSES,            # wet, other-rubber 둘 다 사용
         },
     ],
