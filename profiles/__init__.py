@@ -140,13 +140,14 @@ def to_defect_detection_config(resolved: dict) -> dict:
     """Shape the resolved profile into the dict structure historically returned
     by `utils.config.load_config()` for DefectDetection.
 
-    Keys: bgremover, anomalyclip, classifier, dot_classifier, segmenter, anomaly_cluster,
+    Keys: bgremover, anomaly_extractor, anomalyclip, classifier, dot_classifier, segmenter, anomaly_cluster,
     dot_detector1, dot_detector2, tile_detector, dot_cluster, dot_confidence_by_side,
     show, return_mode.
     """
     shaped = _inject_classes(resolved)
     return {
         "bgremover": shaped.get("bgremover"),
+        "anomaly_extractor": shaped.get("anomaly_extractor") or {"use_tiles": False},
         "anomalyclip": shaped.get("anomalyclip"),
         "classifier": shaped.get("classifier"),
         "dot_classifier": shaped.get("dot_classifier"),
