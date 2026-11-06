@@ -11,7 +11,7 @@ def build_profile(checkpoint_root: str) -> Profile:
         family="BR-C",
         bgremover={
             **base.bgremover,
-            "mask_mode": "postprocess",
+            "mask_mode": "and",
         },
         show={**base.show, "foreground": True},
         baler_classifier={
