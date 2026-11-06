@@ -41,7 +41,7 @@ def build_profile(checkpoint_root: str) -> Profile:
             "threshold": 0.0,
         },
         segmenter={
-            "checkpoint": f"{root}/defect/segment/weights/BR-B/2_F3626E/weights/best.pt",
+            "checkpoint": f"{root}/defect/segment/weights/BR-B/02_F3626E/weights/best.pt",
             "imgsz": 640,
             "threshold": 0.4,
         },

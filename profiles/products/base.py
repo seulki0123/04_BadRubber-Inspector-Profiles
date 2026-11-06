@@ -3,7 +3,7 @@ from profiles._schema import Profile
 _SHOW = {
     "anomaly_map": False,
     "anomaly_score": False,
-    "foreground": True,
+    "foreground": False,
     "anomaly_regions_polygon": False,
     "anomaly_regions_bbox": False,
     "segmentation_regions_polygon": False,
