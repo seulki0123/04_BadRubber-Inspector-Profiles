@@ -84,9 +84,9 @@ def build_profile(checkpoint_root: str) -> Profile:
         },
         segmenter=[
             {
-                "checkpoint": f"{root}/defect/segment/weights/BR-C/G1/09_07+08/weights/best.pt",
+                "checkpoint": f"{root}/defect/segment/weights/BR-C/GND45/03_GND45/weights/best.pt",
                 "imgsz": 640,
-                "threshold": 0.25,
+                "threshold": 0.3,
                 "target": "crop",
                 "classes": _SEGMENT_CLASSES,
             },
