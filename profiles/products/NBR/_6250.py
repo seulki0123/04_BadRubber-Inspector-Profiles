@@ -87,12 +87,12 @@ def build_profile(checkpoint_root: str) -> Profile:
             "threshold": 0.2,
         },
         segmenter={
-            "checkpoint": f"{root}/defect/segment/weights/NBR/G1+G2+G3/37_30+36/weights/best.pt",
+            "checkpoint": f"{root}/defect/segment/weights/NBR/6240/01_6240/weights/best.pt",
             "imgsz": 640,
             "threshold": 0.25,
         },
         tile_detector={
-            "checkpoint": f"{root}/defect/segment/weights/NBR/G1+G2+G3/35_33+34/weights/best.pt",
+            "checkpoint": f"{root}/defect/segment/weights/NBR/6240/01_6240_dot/weights/best.pt",
             "imgsz": 1024,
             "threshold": 0.5,
             "iou_threshold": 0.5,
