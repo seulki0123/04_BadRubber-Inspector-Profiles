@@ -17,7 +17,7 @@ def build_profile(checkpoint_root: str) -> Profile:
     return Profile(
         family="base",
         bgremover={
-            "checkpoint": f"{root}/defect/rmbg/weights/_intergrated/full-line/rmbg_0709/weights/best.pt",
+            "checkpoint": f"{root}/defect/rmbg/weights/_intergrated/full-line/rmbg_0814/weights/best.pt",
             "imgsz": 640,
             "mask_mode": "postprocess",
             "core_hull_resize_scale": 0.25,
