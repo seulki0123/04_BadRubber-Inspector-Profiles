@@ -66,8 +66,8 @@ _CLUSTER_CLASSES = {
 }
 
 _SEGMENT_CLASSES = {
-    0: {"description": "other-rubber", "name": "other-rubber", "color": None, "pass": False},
-    1: {"description": "wet",          "name": "wet",          "color": None, "pass": False},
+    0: {"description": "wet",          "name": "wet",          "color": None, "pass": False},
+    1: {"description": "other-rubber", "name": "other-rubber", "color": None, "pass": False},
 }
 
 def build_profile(checkpoint_root: str) -> Profile:
@@ -82,7 +82,7 @@ def build_profile(checkpoint_root: str) -> Profile:
             "threshold": 0.2,
         },
         segmenter={
-            "checkpoint": f"{root}/defect/segment/weights/SSBR/G4/08_02+04+05+07/weights/best.pt",
+            "checkpoint": f"{root}/defect/segment/weights/BR-B/F2743/02_F2743/weights/best.pt",
             "imgsz": 640,
             "threshold": 0.25,
         },

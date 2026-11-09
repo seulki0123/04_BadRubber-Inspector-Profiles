@@ -32,4 +32,21 @@ def build_profile(checkpoint_root: str) -> Profile:
         #     "side5": False,
         #     "side6": False,
         # },
+        # Dinomaly2 외부이물 ('etc'): SSBR 모델, z_grid_max >= threshold 이면 NG
+        dinomaly2={
+            "checkpoint": f"{root}/defect/dinomaly2/weights/SSBR/All_dinomaly2_dinov2_vits14_reg_448.pt",
+            "holdout": f"{root}/defect/dinomaly2/weights/SSBR/holdout_scores_All_dinomaly2_dinov2_vits14_reg_448.json",
+            "spatial": f"{root}/defect/dinomaly2/weights/SSBR/holdout_spatial_All_dinomaly2_dinov2_vits14_reg_448.npz",
+            "threshold": 14.0,
+            "device": "cuda:1",
+        },
+        # Dinomaly2 는 카메라1(side1, part1/part2)만 판정. 미지정 side 는 활성이므로 전부 명시
+        dinomaly2_active_by_side={
+            "side1": True,
+            "side2": False,
+            "side3": False,
+            "side4": False,
+            "side5": False,
+            "side6": False,
+        },
     )
