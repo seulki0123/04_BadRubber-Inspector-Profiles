@@ -90,7 +90,7 @@ def build_profile(checkpoint_root: str) -> Profile:
             "threshold": 0.4,
         },
         tile_detector={
-            "checkpoint": f"{root}/defect/segment/weights/NBR/2875/3_2875_dot/weights/best.pt",
+            "checkpoint": f"{root}/defect/segment/weights/NBR/2875/NBR_2875_dot_0904/weights/best.pt",
             "imgsz": 1024,
             "threshold": 0.5,
             "iou_threshold": 0.5,
