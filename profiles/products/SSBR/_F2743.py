@@ -44,9 +44,8 @@ _SEG_OTHER_RUBBER_CLASSES = {
 
 # 신규 체크포인트 (G1+G3/260505+260409): 0/1/2 모두 활성화.
 _SEG_ALL_CLASSES = {
-    0: {"description": "other-rubber", "name": "other-rubber", "color": None, "pass": False},
-    1: {"description": "wet",          "name": "wet",          "color": None, "pass": False},
-    2: {"description": "wet-brown",    "name": "wet",          "color": None, "pass": False},
+    0: {"description": "wet",          "name": "wet",          "color": None, "pass": False},
+    1: {"description": "other-rubber", "name": "other-rubber", "color": None, "pass": False},
 }
 
 def build_profile(checkpoint_root: str) -> Profile:
@@ -68,7 +67,7 @@ def build_profile(checkpoint_root: str) -> Profile:
                 "classes": _SEG_OTHER_RUBBER_CLASSES,
             },
             {
-                "checkpoint": f"{root}/defect/segment/weights/SSBR/G1+G3/260505+260409/weights/best.pt",
+                "checkpoint": f"{root}/defect/segment/weights/SSBR/F2743/02_F2743/weights/best.pt",
                 "imgsz": 640,
                 "threshold": 0.25,
                 "classes": _SEG_ALL_CLASSES,

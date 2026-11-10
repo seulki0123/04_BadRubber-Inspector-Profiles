@@ -26,7 +26,6 @@ _CLASSIFY_CLASSES = {
 _SEGMENT_CLASSES = {
     0: {"description": "other-rubber", "name": "other-rubber", "color": None, "pass": False},
     1: {"description": "wet",          "name": "wet",          "color": None, "pass": False},
-    2: {"description": "wet-brown",    "name": "wet",          "color": None, "pass": False},
 }
 
 def build_profile(checkpoint_root: str) -> Profile:
@@ -42,7 +41,7 @@ def build_profile(checkpoint_root: str) -> Profile:
             "threshold": 0.0,
         },
         segmenter={
-            "checkpoint": f"{root}/defect/segment/weights/SSBR/G2-F3626Y+2550H/260404_erasing0.0_E100/weights/best.pt",
+            "checkpoint": f"{root}/defect/segment/weights/SSBR/F3626Y/01_F3626Y/weights/best.pt",
             "imgsz": 640,
             "threshold": 0.25,
         },

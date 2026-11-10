@@ -36,7 +36,6 @@ _CLASSIFY_CLASSES = {
 _SEGMENT_CLASSES = {
     0: {"description": "wet",                      "name": "wet",                      "color": None, "pass": False},
     1: {"description": "other-rubber",          "name": "other-rubber",          "color": None, "pass": False},
-    2: {"description": "wet-brown",          "name": "wet",                        "color": None, "pass": False},
 }
 
 def build_profile(checkpoint_root: str) -> Profile:
@@ -52,8 +51,33 @@ def build_profile(checkpoint_root: str) -> Profile:
             "threshold": 0.0,
         },
         segmenter={
-            "checkpoint": f"{root}/defect/segment/weights/SSBR/G1+G3/07_05+01-2/weights/best.pt",
+            "checkpoint": f"{root}/defect/segment/weights/SSBR/M2520/02_M2520/weights/best.pt",
             "imgsz": 640,
             "threshold": 0.25,
+        },
+        tile_detector={
+            "checkpoint": f"{root}/defect/segment/weights/SSBR/G1-F1038+M0511/26_24+25/weights/best.pt",
+            "imgsz": 1024,
+            "threshold": 0.5,
+            "iou_threshold": 0.5,
+            "device": None,
+
+            # GUI: overlap 좌우 5%, 상하 0%
+            "tile_overlap_x": 0.05,
+            "tile_overlap_y": 0.0,
+
+            # GUI: ROI 좌우 10%, 상하 0%
+            "roi_left": 0.0,
+            "roi_right": 0.0,
+            "roi_top": 0.05,
+            "roi_bottom": 0.05,
+
+            # GUI: 배경 제거 후 외부 black 채움, margin 0, min_pixel 8
+            "bg_color": "black",
+            "bg_margin_top": 0,
+            "bg_margin_bottom": 0,
+            "bg_margin_left": 0,
+            "bg_margin_right": 0,
+            "bg_min_pixel": 8,
         },
     )
