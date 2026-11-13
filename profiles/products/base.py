@@ -6,7 +6,7 @@ _SHOW = {
     "foreground": False,
     "anomaly_regions_polygon": False,
     "anomaly_regions_bbox": False,
-    "segmentation_regions_polygon": False,
+    "segmentation_regions_polygon": True,
     "segmentation_regions_bbox": True,
     "patchcore": True,
     "show_pass_classes": False,
