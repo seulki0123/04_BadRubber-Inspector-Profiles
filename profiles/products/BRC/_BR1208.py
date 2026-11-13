@@ -85,7 +85,7 @@ def build_profile(checkpoint_root: str) -> Profile:
             {
                 "checkpoint": f"{root}/defect/segment/weights/BR-C/G1/09_07+08/weights/best.pt",
                 "imgsz": 640,
-                "threshold": 0.5,
+                "threshold": 0.7,
                 "target": "crop",
                 "classes": _SEGMENT_CLASSES,
             },
