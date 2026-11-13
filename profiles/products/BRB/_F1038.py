@@ -70,6 +70,11 @@ _SEGMENT_CLASSES = {
     1: {"description": "wet",          "name": "wet",          "color": None, "pass": False},
 }
 
+_BIG_SEGMENT_CLASSES = {
+    0: {"description": "wet", "name": "wet", "color": None, "pass": False, "conf": 0.6},
+    1: {"description": "other-rubber", "name": "other-rubber", "color": None, "pass": False, "conf": 0.4},
+}
+
 def build_profile(checkpoint_root: str) -> Profile:
     root = checkpoint_root.rstrip("/")
     base = _build_base(checkpoint_root)
@@ -81,9 +86,20 @@ def build_profile(checkpoint_root: str) -> Profile:
             "checkpoints_path": f"{root}/defect/classify/weights/SSBR/G1-F0010+F1038+F1810+M0511/DINOv2_(F0010+F1038+F1810+M0511).pt",
             "threshold": 0.2,
         },
-        segmenter={
-            "checkpoint": f"{root}/defect/segment/weights/SSBR/G1-F1038+M0511/18_13+14-1+16-1/weights/best.pt",
-            "imgsz": 640,
-            "threshold": 0.25,
-        },
+        segmenter=[
+            {
+                "checkpoint": f"{root}/defect/segment/weights/BR-B/F1038/01_F1038/weights/best.pt",
+                "imgsz": 640,
+                "threshold": 0.25,
+                "target": "crop",
+                "classes": _SEGMENT_CLASSES,
+            },
+            {
+                "checkpoint": f"{root}/defect/segment_big/SSBR/F1038/01_F1038/weights/best.pt",
+                "imgsz": 256,
+                "threshold": 0.25,
+                "target": "full",
+                "classes": _BIG_SEGMENT_CLASSES,
+            },
+        ],
     )
