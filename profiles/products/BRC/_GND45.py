@@ -64,7 +64,7 @@ _SEGMENT_CLASSES = {
 }
 
 _BIG_SEGMENT_CLASSES = {
-    0: {"description": "wet", "name": "wet", "color": None, "pass": False, "conf": 0.65},
+    0: {"description": "wet", "name": "wet", "color": None, "pass": False, "conf": 0.40},
     1: {"description": "accumulated", "name": "accumulated", "color": None, "pass": False, "conf": 0.25},
 }
 
@@ -84,14 +84,14 @@ def build_profile(checkpoint_root: str) -> Profile:
         },
         segmenter=[
             {
-                "checkpoint": f"{root}/defect/segment/weights/BR-C/G1/09_07+08/weights/best.pt",
+                "checkpoint": f"{root}/defect/segment/weights/BR-C/GND45/03_GND45/weights/best.pt",
                 "imgsz": 640,
                 "threshold": 0.25,
                 "target": "crop",
                 "classes": _SEGMENT_CLASSES,
             },
             {
-                "checkpoint": f"{root}/defect/segment_big/BR-C/GND/weights/best.pt",
+                "checkpoint": f"{root}/defect/segment_big/BR-C/08_GND2/weights/best.pt",
                 "imgsz": 256,
                 "threshold": 0.25,
                 "target": "full",

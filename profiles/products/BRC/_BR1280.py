@@ -63,6 +63,11 @@ _SEGMENT_CLASSES = {
     1: {"description": "accumulated", "name": "accumulated",        "color": None, "pass": False},
 }
 
+_BIG_SEGMENT_CLASSES = {
+    0: {"description": "wet", "name": "wet", "color": None, "pass": False, "conf": 0.40},
+    1: {"description": "accumulated", "name": "accumulated", "color": None, "pass": False, "conf": 0.4},
+}
+
 def build_profile(checkpoint_root: str) -> Profile:
     root = checkpoint_root.rstrip("/")
     base = _build_base(checkpoint_root)
@@ -76,11 +81,22 @@ def build_profile(checkpoint_root: str) -> Profile:
             "imgsz": 640,
             "threshold": 0.65,
         },
-        segmenter={
-            "checkpoint": f"{root}/defect/segment/weights/BR-C/G1/hm_0803/weights/best.pt",
-            "imgsz": 640,
-            "threshold": 0.25,
-        },
+        segmenter=[
+            {
+                "checkpoint": f"{root}/defect/segment/weights/BR-C/G1/hm_0803/weights/best.pt",
+                "imgsz": 640,
+                "threshold": 0.6,
+                "target": "crop",
+                "classes": _SEGMENT_CLASSES,
+            },
+            {
+                "checkpoint": f"{root}/defect/segment_big/BR-C/08_GND2/weights/best.pt",
+                "imgsz": 256,
+                "threshold": 0.25,
+                "target": "full",
+                "classes": _BIG_SEGMENT_CLASSES,
+            },
+        ],
         dot_detector1={
             "checkpoint": f"{root}/defect/detect/weights/BR/dot/04-18/best.pt",
             "imgsz": 2048,
@@ -91,7 +107,7 @@ def build_profile(checkpoint_root: str) -> Profile:
             "threshold": 0.7,
         },
         tile_detector={
-            "checkpoint": f"{root}/defect/segment/weights/BR-C/G1/26_24+25/weights/best.pt",
+            "checkpoint": f"{root}/defect/segment/weights/BR-C/01_BR-C_dot/weights/best.pt",
             "imgsz": 1024,
             "threshold": 0.5,
             "iou_threshold": 0.5,
