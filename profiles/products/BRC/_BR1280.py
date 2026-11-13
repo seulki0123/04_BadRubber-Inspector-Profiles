@@ -65,7 +65,7 @@ _SEGMENT_CLASSES = {
 
 _BIG_SEGMENT_CLASSES = {
     0: {"description": "wet", "name": "wet", "color": None, "pass": False, "conf": 0.40},
-    1: {"description": "accumulated", "name": "accumulated", "color": None, "pass": False, "conf": 0.25},
+    1: {"description": "accumulated", "name": "accumulated", "color": None, "pass": False, "conf": 0.4},
 }
 
 def build_profile(checkpoint_root: str) -> Profile:
@@ -85,7 +85,7 @@ def build_profile(checkpoint_root: str) -> Profile:
             {
                 "checkpoint": f"{root}/defect/segment/weights/BR-C/G1/hm_0803/weights/best.pt",
                 "imgsz": 640,
-                "threshold": 0.25,
+                "threshold": 0.6,
                 "target": "crop",
                 "classes": _SEGMENT_CLASSES,
             },
