@@ -56,7 +56,7 @@ def build_profile(checkpoint_root: str) -> Profile:
             "threshold": 0.25,
         },
         tile_detector={
-            "checkpoint": f"{root}/defect/segment/weights/SSBR/G1-F1038+M0511/26_24+25/weights/best.pt",
+            "checkpoint": f"{root}/defect/segment/weights/SSBR/M2520/01_M2520_gel/weights/best.pt",
             "imgsz": 1024,
             "threshold": 0.5,
             "iou_threshold": 0.5,
