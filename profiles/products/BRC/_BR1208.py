@@ -85,12 +85,12 @@ def build_profile(checkpoint_root: str) -> Profile:
             {
                 "checkpoint": f"{root}/defect/segment/weights/BR-C/G1/hm_0803/weights/best.pt",
                 "imgsz": 640,
-                "threshold": 0.65,
+                "threshold": 0.8,
                 "target": "crop",
                 "classes": _SEGMENT_CLASSES,
             },
             {
-                "checkpoint": f"{root}/defect/segment_big/BR-C/08_GND2/weights/best.pt",
+                "checkpoint": f"{root}/defect/segment_big/BR-C/1208/04_1208/weights/best.pt",
                 "imgsz": 256,
                 "threshold": 0.25,
                 "target": "full",
@@ -107,7 +107,7 @@ def build_profile(checkpoint_root: str) -> Profile:
             "threshold": 0.7,
         },
         tile_detector={
-            "checkpoint": f"{root}/defect/segment/weights/BR-C/dot/01_BR-C_1208/weights/best.pt",
+            "checkpoint": f"{root}/defect/segment/weights/BR-C/dot/02_BR-C_1208/weights/best.pt",
             "imgsz": 1024,
             "threshold": 0.5,
             "iou_threshold": 0.5,
